@@ -139,3 +139,21 @@ app.post("/contacts",
 		}
 );
 
+// API Endpoint: delete Contacts 
+app.delete("/contacts/:id", 
+		async (inRequest: Request, inResponse: Response) => {
+				try{
+						// initialize the nessary worker to get the contacts
+						const contactWorker: Contacts.Worker = new Contacts.Worker();
+						// delete the passed contact
+						await contactsWorker.deleteContact(inRequest.params.id);
+						// if everything went ok delete send ok
+						inRequest.send("ok");
+				}catch( inError ){
+						inResponse.send("error");
+				}
+		}
+);
+
+
+
